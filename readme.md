@@ -50,7 +50,7 @@ unit_model_2 = torch.nn.Sequential(
 model = torch.nn.Sequential(
     podnn_torch.InputLayer(n_models=6),
     podnn_torch.ParallelLayer(unit_model_1),
-    podnn_torch.OrthogonalLayer2D(),
+    podnn_torch.OrthogonalLayer1D(),
     podnn_torch.ParallelLayer(unit_model_2),
     podnn_torch.AggregationLayer(stride=2,input_dim=4),
     nn.Linear(in_features=podnn_torch.agg_out_dim,out_features=1),
@@ -100,7 +100,7 @@ class podnnModel(Model):
     def build(self,input_shape):
         self.InputLayer = podnn_tensorflow.InputLayer(n_models=4)
         self.ParallelLayer1 = podnn_tensorflow.ParallelLayer(unit_model_1)
-        self.OrthogonalLayer = podnn_tensorflow.OrthogonalLayer2D()
+        self.OrthogonalLayer = podnn_tensorflow.OrthogonalLayer1D()
         self.ParallelLayer2 = podnn_tensorflow.ParallelLayer(unit_model_2)
         self.AggregationLayer = podnn_tensorflow.AggregationLayer(stride=2, input_dim=4)
         self.DenseLayer = tf.keras.layers.Dense(1, activation='sigmoid')
@@ -191,7 +191,7 @@ unit_model_2 = torch.nn.Sequential(
 model = torch.nn.Sequential(
     podnn_torch.InputLayer(n_models=4),
     podnn_torch.ParallelLayer(unit_model_1),
-    podnn_torch.OrthogonalLayer3D(),
+    podnn_torch.OrthogonalLayer2D(),
     podnn_torch.ParallelLayer(unit_model_2),
     podnn_torch.AggregationLayer(stride=2,input_dim=128,output_dim=10),
     nn.Linear(in_features=20,out_features=10),
@@ -255,7 +255,7 @@ class podnnModel(Model):
     def build(self,input_shape):
         self.InputLayer = podnn_tensorflow.InputLayer(n_models=4)
         self.ParallelLayer = podnn_tensorflow.ParallelLayer(unit_model_1)
-        self.OrthogonalLayer = podnn_tensorflow.OrthogonalLayer3D()
+        self.OrthogonalLayer = podnn_tensorflow.OrthogonalLayer2D()
         self.ParallelLayer2 = podnn_tensorflow.ParallelLayer(unit_model_2)
         self.AggregationLayer = podnn_tensorflow.AggregationLayer(stride=2, output_dim=10)
         self.DenseLayer = layers.Dense(10, activation='softmax')
